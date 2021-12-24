@@ -32,20 +32,20 @@ const SignUp = () => {
          fetch("https://restcountries.com/v2/all")
          .then(response => response.json())
          .then(data =>{
-             console.log(data)
+            
               let areaData = data.map(item => {
                   return {
                       code: item.alpha2Code,
                       name: item.name,
-                      callingCode: `+${item.callingCode[0]}`,
-                      flag: `https://www.countryflags.io/${item.alpha2Code}/flat/64.png` 
+                      callingCode: `+${item.callingCodes[0]}`,
+                    flag: item.flags.png   
                   }
               })
 
               setAreas(areaData)
 
               if(areaData.length > 0 ) {
-                  let defaultData = areaData.filter(a => a.code == "US")
+                  let defaultData = areaData.filter(a => a.code == "TG")
 
                   if(defaultData.length > 0 ) {
                       setSelectedArea(defaultData[0])
@@ -229,19 +229,19 @@ const SignUp = () => {
 
      function renderAreaCodesModal() {
 
-        const renderItem = ((item) => {
+        const renderItem = ({item}) => {
             return (
                 <TouchableOpacity 
                 style={{
                     padding: SIZES.padding, flexDirection: 'row'
                 }}
                     onPress={() => {
-                        setSelctedarea(item)
+                        setSelectedArea(item)
                         setModalVisible(false)
                     }}>
 
                     <Image
-                       source={{uri: item.flag}} 
+                       source={{ uri: item.flag }} 
                             style={{
                                 width: 30,
                                 height: 30,
@@ -251,7 +251,7 @@ const SignUp = () => {
                      <Text style={{ ...FONTS.body4 }} >{item.name} </Text>
                 </TouchableOpacity>
             )
-        })
+        }
          return (
              <Modal
                  animationType="slide"
