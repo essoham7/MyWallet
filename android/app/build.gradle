@@ -132,6 +132,7 @@ android {
 
     defaultConfig {
         applicationId "com.wallet"
+        missingDimensionStrategy 'react-native-camera', 'general' // <--- insert this line
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
